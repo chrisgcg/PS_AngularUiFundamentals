@@ -1,3 +1,3 @@
-# PS_AngularUiFundamentals
+# AngularUiFundamentals
 Course on Pluralsight
 
