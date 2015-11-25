@@ -42,8 +42,8 @@
                 controller: 'GamesCtrl',
                 controllerAs: 'vm',
                 resolve: {
-                    initialData: ['$route', 'eliteApi', function ($route, eliteApi) {
-                        return eliteApi.getGames($route.current.params.id);
+                    initialData: ['$route', 'gamesInitialDataService', function ($route, gamesInitialDataService) {
+                        return gamesInitialDataService.getData($route.current.params.id);
                     }]
                 }
             })
