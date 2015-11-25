@@ -58,7 +58,6 @@
                 }
             });
 
-
         $routeProvider.otherwise('/');
     }
 
