@@ -8,10 +8,10 @@
         .module('eliteAdmin')
         .controller('TeamsCtrl', TeamsCtrl);
 
-    TeamsCtrl.$inject = ['$modal','$location', '$routeParams', 'initialData', 'eliteApi', 'dialogsService'];
+    TeamsCtrl.$inject = ['$modal','$state', '$stateParams', 'initialData', 'eliteApi', 'dialogsService'];
 
     /* @ngInject */
-    function TeamsCtrl($modal, $location, $routeParams, initialData, eliteApi, dialogs) {
+    function TeamsCtrl($modal, $state, $stateParams, initialData, eliteApi, dialogs) {
         var vm = this;
 
         vm.deleteItem = deleteItem;
@@ -55,7 +55,7 @@
             });
 
             modalInstance.result.then(function(result){
-                result.leagueId = $routeParams.id;
+                result.leagueId = $stateParams.id;
                 eliteApi.saveTeam(result).then(function(data){
                     if (team){
                         _.assign(team, data);
@@ -68,7 +68,8 @@
         }
 
         function go(path) {
-            $location.path('leagues/' + $routeParams.id + '/' + path);
+            //$location.path('leagues/' + $routeParams.id + '/' + path);
+            $state.go('league-games', {id: $stateParams.id});
         }
 
         function initializeGroups(){

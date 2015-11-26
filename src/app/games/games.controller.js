@@ -8,10 +8,10 @@
         .module('eliteAdmin')
         .controller('GamesCtrl', GamesCtrl);
 
-    GamesCtrl.$inject = ['$modal', '$location', '$routeParams', 'initialData', 'eliteApi', 'dialogsService'];
+    GamesCtrl.$inject = ['$modal', '$location', '$stateParams', 'initialData', 'eliteApi', 'dialogsService'];
 
     /* @ngInject */
-    function GamesCtrl($modal, $location, $routeParams, initialData, eliteApi, dialogs) {
+    function GamesCtrl($modal, $location, $stateParams, initialData, eliteApi, dialogs) {
         var vm = this;
 
         vm.go = go;
@@ -62,7 +62,7 @@
             });
 
             modalInstance.result.then(function(result){
-                result.leagueId = $routeParams.id;
+                result.leagueId = $stateParams.id;
                 eliteApi.saveGame(result).then(function(data){
                     if (game){
                         _.assign(game, data);
