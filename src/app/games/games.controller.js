@@ -14,7 +14,6 @@
     function GamesCtrl($modal, $location, $stateParams, initialData, eliteApi, dialogs) {
         var vm = this;
 
-        vm.go = go;
         vm.deleteItem = deleteItem;
         vm.editItem = editItem;
         vm.games = initialData.games;
@@ -22,6 +21,20 @@
         vm.locationsLookup = {};
         vm.teams = initialData.teams;
         vm.teamsLookup = {};
+
+        vm.calendarConfig = {
+            height: 550,
+            header:{
+                left: 'month agendaWeek agendaDay',
+                center: 'title',
+                right: 'today prev,next'
+            },
+            defaultView: 'agendaDay',
+            firstHour: 8
+        };
+
+        //vm.eventSources
+
         activate();
 
         ////////////////
@@ -34,6 +47,20 @@
             _.forEach(vm.locations, function(location){
                 vm.locationsLookup[location.id] = location.name;
             });
+
+            var gameEvents = _.map(vm.games, mapToGameEvent);
+            vm.eventSources = [gameEvents];
+        }
+
+        function mapToGameEvent(game){
+            return{
+                id: game.id,
+                start: game.time,
+                title: vm.teamsLookup[game.team1Id] + ' vs. ' + vm.teamsLookup[game.team2Id],
+                allDay: false,
+                durationEditable: false,
+                end: moment(game.time).add(1, 'hour').toDate()
+            };
         }
 
         function deleteItem(id){
@@ -72,10 +99,6 @@
                     }
                 });
             });
-        }
-
-        function go(path) {
-            $location.path('leagues/' + $routeParams.id + '/' + path);
         }
     }
 

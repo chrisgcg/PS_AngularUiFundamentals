@@ -16,7 +16,6 @@
 
         vm.deleteItem = deleteItem;
         vm.editItem = editItem;
-        vm.go = go;
         vm.teams = initialData;
         vm.toggleExpand = toggleExpand;
         vm.accordionExpanded = true;
@@ -65,11 +64,6 @@
                     initializeGroups();
                 });
             });
-        }
-
-        function go(path) {
-            //$location.path('leagues/' + $routeParams.id + '/' + path);
-            $state.go('league-games', {id: $stateParams.id});
         }
 
         function initializeGroups(){
