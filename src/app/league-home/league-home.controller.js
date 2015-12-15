@@ -8,12 +8,16 @@
         .module('eliteAdmin')
         .controller('LeagueHomeCtrl', LeagueHomeCtrl);
 
-    LeagueHomeCtrl.$inject = ['initialData'];
+    LeagueHomeCtrl.$inject = ['initialData', 'eliteApi'];
 
     /* @ngInject */
-    function LeagueHomeCtrl(initialData) {
+    function LeagueHomeCtrl(initialData, eliteApi) {
         var vm = this;
-        vm.title = 'LeagueHomeCtrl';
+        vm.activate = activate;
+        vm.league = initialData;
+        vm.homeContent = initialData.homeScreen;
+        vm.reset = reset;
+        vm.save = save;
 
         activate();
 
@@ -23,6 +27,14 @@
 
         }
 
+        function reset(){
+            vm.homeContent = initialData.homeScreen;
+        }
+
+        function save(){
+            vm.league.homeScreen = vm.homeContent;
+            eliteApi.saveLeague(vm.league);
+        }
     }
 
 })();

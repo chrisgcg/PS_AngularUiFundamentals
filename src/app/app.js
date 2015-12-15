@@ -8,7 +8,8 @@
         'ui.bootstrap',
         'ui.router',
         'ui.calendar',
-        'uiGmapgoogle-maps'
+        'uiGmapgoogle-maps',
+        'ui.ace'
     ]);
 
     //app.config(['$routeProvider', configRoutes]);
